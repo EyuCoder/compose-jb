@@ -278,7 +278,6 @@ fun MyInputComponent(text: State<String>, onChange: (String) -> Unit) {
                 }
                 onTextInput {
                     onChange(it.inputValue)
-                    println("On input = : ${it.nativeEvent.isComposing} - ${it.inputValue}")
                 }
                 onKeyUp {
                     println("On keyUp key = : ${it.getNormalizedKey()}")
