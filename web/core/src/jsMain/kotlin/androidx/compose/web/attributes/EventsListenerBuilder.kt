@@ -224,6 +224,11 @@ open class EventsListenerBuilder {
         listeners.add(WrappedEventListener(eventName, options, listener))
     }
 
+    fun copyListenersFrom(from: EventsListenerBuilder) {
+        listeners.clear()
+        listeners.addAll(from.listeners)
+    }
+
     companion object {
         const val COPY = "copy"
         const val CUT = "cut"

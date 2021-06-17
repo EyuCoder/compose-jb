@@ -97,6 +97,9 @@ fun AttrsBuilder<HTMLFormElement>.target(value: FormTarget) =
 fun AttrsBuilder<HTMLInputElement>.type(value: InputType) =
     attr("type", value.typeStr)
 
+fun AttrsBuilder<HTMLInputElement>.type(value: InputType2<*>) =
+    attr("type", value.typeStr)
+
 fun AttrsBuilder<HTMLInputElement>.accept(value: String) =
     attr("accept", value) // type: file only
 

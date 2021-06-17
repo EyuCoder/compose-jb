@@ -1,5 +1,7 @@
 package org.jetbrains.compose.web.attributes
 
+import org.w3c.dom.events.Event
+
 sealed class InputType(val typeStr: String) {
     object Button : InputType("button")
     object Checkbox : InputType("checkbox")
@@ -21,6 +23,26 @@ sealed class InputType(val typeStr: String) {
     object Time : InputType("time")
     object Url : InputType("url")
     object Week : InputType("week")
+}
+
+sealed class InputType2<T>(val typeStr: String) {
+    object Button : InputType2<Unit>("button") {
+        override fun inputValue(event: Event) = Unit
+    }
+
+    object Radio : InputType2<Boolean>("radio") {
+        override fun inputValue(event: Event): Boolean {
+            return event.target?.asDynamic()?.checked?.unsafeCast<Boolean>() ?: false
+        }
+    }
+
+    object Text : InputType2<String>("text") {
+        override fun inputValue(event: Event): String {
+            return event.target?.asDynamic()?.value?.unsafeCast<String>() ?: ""
+        }
+    }
+
+    abstract fun inputValue(event: Event): T
 }
 
 sealed class DirType(val dirStr: String) {

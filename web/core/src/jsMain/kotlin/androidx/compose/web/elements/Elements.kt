@@ -2,19 +2,11 @@ package org.jetbrains.compose.web.dom
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ComposeNode
+import androidx.compose.web.attributes.InputAttrsBuilder
 import org.jetbrains.compose.web.DomApplier
 import org.jetbrains.compose.web.DomNodeWrapper
-import org.jetbrains.compose.web.attributes.AttrsBuilder
-import org.jetbrains.compose.web.attributes.InputType
-import org.jetbrains.compose.web.attributes.action
-import org.jetbrains.compose.web.attributes.alt
-import org.jetbrains.compose.web.attributes.forId
-import org.jetbrains.compose.web.attributes.href
-import org.jetbrains.compose.web.attributes.label
-import org.jetbrains.compose.web.attributes.src
-import org.jetbrains.compose.web.attributes.type
-import org.jetbrains.compose.web.attributes.value
 import kotlinx.browser.document
+import org.jetbrains.compose.web.attributes.*
 import org.w3c.dom.HTMLAnchorElement
 import org.w3c.dom.HTMLAreaElement
 import org.w3c.dom.HTMLAudioElement
@@ -353,6 +345,23 @@ fun A(
             attrs()
         },
         content = content
+    )
+}
+
+@Composable
+fun <K> Input(
+    type: InputType2<K>,
+    attrs: InputAttrsBuilder<K>.() -> Unit = {}
+) {
+    TagElement(
+        elementBuilder = ElementBuilder.Input,
+        applyAttrs = {
+            val iab = InputAttrsBuilder(type)
+            iab.type(type)
+            iab.attrs()
+            this.copyFrom(iab)
+        },
+        content = null
     )
 }
 
